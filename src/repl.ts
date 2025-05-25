@@ -1,4 +1,7 @@
 ﻿import {createInterface} from "node:readline"
+import {command_exit} from "./command_exit.js";
+import {command_help} from "./command_help.js";
+import {CLICommand} from "./command";
 
 export function cleanInput(input: string): string[] {
     return input.toLowerCase().trim().split(' ').filter((word) => word !=="");
@@ -17,8 +20,30 @@ export function startREPL(){
             rl.prompt();
             return;
         }
-        console.log(`Your command was: ${input[0]}`);
+        const commandName = input[0];
+        const commands = getCommands();
+        const cmd = commands[commandName];
+        if (!cmd) {
+            console.log(`Unknown command: ${commandName}. Type 'help' for a list of commands.`);
+            rl.prompt();
+            return;
+        }
+        cmd.callback(commands);
         rl.prompt();
-        return;
     })
 }
+
+export function getCommands(): Record<string,CLICommand> {
+    return {
+        help: {
+            name: "help",
+            description: "Displays a help message",
+            callback: command_help,
+        },
+        exit: {
+            name: "exit",
+            description: "Exit the Pokedex",
+            callback: command_exit,
+            },
+        }
+    }
