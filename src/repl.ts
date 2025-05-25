@@ -9,6 +9,7 @@ export async function startREPL(state: State) {
             return;
         }
         const commandName = input[0];
+        const args = input.slice(1);
         const cmd = state.commands[commandName];
         if (!cmd) {
             console.log(`Unknown command: ${commandName}. Type 'help' for a list of commands.`);
@@ -16,7 +17,7 @@ export async function startREPL(state: State) {
             return;
         }
         try {
-            await cmd.callback(state);
+            await cmd.callback(state,...args);
         }catch(err){
             console.log(err);
         }
