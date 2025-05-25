@@ -8,9 +8,9 @@ export async function command_explore(state: State ,...args: string[]): Promise<
         throw new Error("Too many arguments");
     }
     console.log(
-        `Searching for pokemon in ${args[1]}`
+        `Searching for pokemon in ${args[0]}`
     )
-    const response= await state.pokeapi.fetchLocation(args[1]);
+    const response= await state.pokeapi.fetchLocation(args[0]);
     for(const Pokemon of response.pokemon_encounters) {
         console.log(` - ${Pokemon.pokemon.name}`);
     }
