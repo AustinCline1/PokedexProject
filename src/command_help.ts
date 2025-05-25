@@ -1,7 +1,6 @@
-﻿import {getCommands} from "./repl.js";
-import {CLICommand} from "./command";
-export function command_help(commands: Record<string,CLICommand>) {
-    const allCommands = getCommands();
+﻿import {State} from "./state.js";
+export async function command_help(state: State): Promise<void> {
+    const allCommands = state.commands;
     console.log("Welcome to the Pokedex!");
     console.log("Usage: ");
     console.log();
