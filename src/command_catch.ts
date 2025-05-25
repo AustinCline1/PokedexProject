@@ -22,5 +22,6 @@ export async function command_catch(state: State,...args: string[]): Promise<voi
     for(const ability in state.pokedex[args[0]].abilities) {
         console.log(`Ability:${parseInt(ability) + 1} ${state.pokedex[args[0]].abilities[parseInt(ability)].ability.name}`)
     }
+    console.log(`For more information, type 'inspect ${args[0]}'`);
 
 }
